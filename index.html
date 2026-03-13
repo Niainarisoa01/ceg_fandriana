@@ -1,0 +1,2137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CEG Fandriana — Collège d'Enseignement Général</title>
+  <meta name="description" content="Site officiel du CEG Fandriana, établissement public d'enseignement du premier cycle du secondaire, Fandriana, Amoron'i Mania, Madagascar." />
+  <meta name="keywords" content="CEG Fandriana, collège, enseignement secondaire, Madagascar, Amoron'i Mania, BEPC" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:        #0d1520;
+      --navy:       #112240;
+      --blue:       #1a3a6e;
+      --mid-blue:   #2a5298;
+      --sky:        #4a7fc1;
+      --gold:       #b8860b;
+      --gold-warm:  #c9962b;
+      --gold-light: #d4a843;
+      --parchment:  #f7f4ef;
+      --stone:      #eae6df;
+      --mist:       #f2f4f7;
+      --rule:       #d6d0c8;
+      --text:       #1a1f2b;
+      --text-mid:   #4a5568;
+      --text-faint: #8a95a6;
+      --white:      #ffffff;
+
+      --f-serif:  'Cormorant Garamond', 'Times New Roman', serif;
+      --f-sans:   'DM Sans', system-ui, sans-serif;
+      --f-mono:   'DM Mono', monospace;
+
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --t: 0.4s;
+      --r: 6px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--f-sans);
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─────────────────────────────────────────
+       SVG ICONS (inline, no emoji)
+    ───────────────────────────────────────── */
+    .icon {
+      display: inline-block;
+      width: 1em; height: 1em;
+      vertical-align: middle;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ─────────────────────────────────────────
+       NAV
+    ───────────────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      height: 68px;
+      display: flex; align-items: center;
+      padding: 0 2.5rem;
+      transition: background var(--t) var(--ease), box-shadow var(--t) var(--ease);
+    }
+    #nav.scrolled {
+      background: rgba(11,21,32,0.97);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 4px 24px rgba(0,0,0,0.35);
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .nav-seal {
+      width: 44px; height: 44px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .nav-seal::before {
+      content: '';
+      position: absolute; inset: 3px;
+      border: 1px solid rgba(201,150,43,0.35);
+      border-radius: 50%;
+    }
+    .nav-seal-text {
+      font-family: var(--f-serif);
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      position: relative; z-index: 1;
+    }
+    .nav-name {
+      font-family: var(--f-serif);
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.01em;
+    }
+    .nav-name small {
+      display: block;
+      font-family: var(--f-sans);
+      font-size: 0.62rem; font-weight: 400;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 2px;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 0.8rem; font-weight: 400;
+      letter-spacing: 0.03em;
+      padding: 7px 13px;
+      border-radius: 4px;
+      transition: color var(--t) var(--ease), background var(--t) var(--ease);
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.07); }
+    .nav-btn {
+      background: var(--gold) !important;
+      color: var(--navy) !important;
+      font-weight: 600 !important;
+      padding: 8px 18px !important;
+      border-radius: var(--r) !important;
+      transition: background var(--t) var(--ease) !important;
+    }
+    .nav-btn:hover { background: var(--gold-light) !important; }
+
+    .burger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 8px;
+    }
+    .burger span {
+      width: 22px; height: 1.5px;
+      background: rgba(255,255,255,0.75);
+      border-radius: 2px;
+      transition: var(--t) var(--ease);
+    }
+    .mob-menu {
+      display: none;
+      position: fixed; top: 68px; left: 0; right: 0; z-index: 899;
+      background: rgba(11,21,32,0.98);
+      backdrop-filter: blur(12px);
+      padding: 1rem 2rem 2rem;
+      flex-direction: column; gap: 2px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .mob-menu a {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      padding: 11px 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: color var(--t);
+    }
+    .mob-menu a:hover { color: var(--gold); }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex; align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: var(--navy);
+    }
+    /* Geometric architectural layer */
+    .hero-geo {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, #0d1520 0%, #112240 35%, #1a3a6e 65%, #112240 100%);
+    }
+    /* Subtle grid pattern */
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+    /* Diagonal accent */
+    .hero-diag {
+      position: absolute;
+      top: -10%; right: -5%;
+      width: 55%; height: 120%;
+      background: linear-gradient(135deg, transparent 0%, rgba(26,58,110,0.6) 40%, rgba(26,58,110,0.3) 100%);
+      clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+    /* Gold accent line */
+    .hero-accent {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, transparent 0%, var(--gold) 20%, var(--gold) 80%, transparent 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1280px; margin: 0 auto;
+      padding: 130px 2.5rem 100px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 5rem;
+      align-items: center;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 2rem;
+    }
+    .hero-eyebrow-line {
+      width: 40px; height: 1px;
+      background: var(--gold);
+    }
+    .hero-eyebrow-text {
+      font-family: var(--f-mono);
+      font-size: 0.7rem; font-weight: 500;
+      color: var(--gold-light);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .hero-title {
+      font-family: var(--f-serif);
+      font-size: clamp(3rem, 6vw, 5.2rem);
+      font-weight: 600;
+      line-height: 1.08;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .hero-subtitle {
+      font-size: 1rem; font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.8;
+      max-width: 520px;
+      margin-bottom: 3rem;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none;
+      font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 13px 26px;
+      border-radius: var(--r);
+      transition: all var(--t) var(--ease);
+      cursor: pointer; border: none;
+    }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--navy);
+      box-shadow: 0 4px 20px rgba(184,134,11,0.3);
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(184,134,11,0.4); }
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: var(--white); }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      z-index: 2;
+    }
+    .hero-scroll-label {
+      font-size: 0.62rem; letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      font-family: var(--f-mono);
+    }
+    .hero-scroll-bar {
+      width: 1px; height: 56px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 0.8; transform: scaleY(0.6); }
+    }
+
+    /* Hero right panel */
+    .hero-panel {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-panel::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), transparent);
+    }
+    .hp-seal {
+      width: 80px; height: 80px;
+      border: 2px solid rgba(201,150,43,0.4);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      position: relative;
+    }
+    .hp-seal::after {
+      content: '';
+      position: absolute; inset: 5px;
+      border: 1px dashed rgba(201,150,43,0.25);
+      border-radius: 50%;
+    }
+    .hp-seal-abbr {
+      font-family: var(--f-serif);
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--gold-light);
+      position: relative; z-index: 1;
+    }
+    .hp-name {
+      font-family: var(--f-serif);
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--white); text-align: center;
+      margin-bottom: 0.35rem;
+    }
+    .hp-location {
+      font-size: 0.75rem; color: rgba(255,255,255,0.4);
+      text-align: center; letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      font-family: var(--f-mono);
+    }
+    .hp-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      margin-bottom: 2rem;
+    }
+    .hp-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .hp-stat {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r);
+    }
+    .hp-stat-num {
+      font-family: var(--f-serif);
+      font-size: 2rem; font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .hp-stat-label {
+      font-size: 0.65rem; color: rgba(255,255,255,0.4);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      font-family: var(--f-mono);
+    }
+    .hp-levels {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 0.5rem; margin-top: 1rem;
+    }
+    .hp-level {
+      border: 1px solid rgba(201,150,43,0.2);
+      border-radius: 5px;
+      padding: 8px 4px;
+      text-align: center;
+      background: rgba(201,150,43,0.04);
+    }
+    .hp-level-class {
+      font-family: var(--f-serif);
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--gold-light);
+    }
+    .hp-level-word {
+      font-size: 0.6rem; color: rgba(255,255,255,0.35);
+      letter-spacing: 0.06em;
+      font-family: var(--f-mono);
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION BASE
+    ───────────────────────────────────────── */
+    section { padding: 100px 2.5rem; }
+    .wrap { max-width: 1280px; margin: 0 auto; }
+
+    .eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+    .eyebrow-line { width: 32px; height: 1px; background: var(--gold); }
+    .eyebrow-text {
+      font-family: var(--f-mono);
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .section-h {
+      font-family: var(--f-serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+    }
+    .section-h em { font-style: italic; }
+    .section-p {
+      font-size: 1rem; font-weight: 300;
+      color: var(--text-mid);
+      line-height: 1.8;
+      max-width: 580px;
+    }
+
+    /* ─────────────────────────────────────────
+       À PROPOS
+    ───────────────────────────────────────── */
+    #about { background: var(--parchment); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .about-visual { position: relative; }
+    .about-img {
+      background: linear-gradient(145deg, var(--blue) 0%, var(--navy) 100%);
+      border-radius: 10px;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+    /* Architectural frame image placeholder */
+    .about-img-inner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-img-svg {
+      width: 100%; height: 100%;
+      opacity: 0.15;
+    }
+    .about-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(11,21,32,0.85), transparent);
+    }
+    .about-caption-text {
+      font-family: var(--f-serif);
+      font-size: 1rem; font-style: italic;
+      color: rgba(255,255,255,0.85);
+    }
+    .about-caption-sub {
+      font-size: 0.7rem; color: var(--gold-light);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: var(--f-mono);
+      margin-top: 4px;
+    }
+    .about-badge {
+      position: absolute; bottom: -24px; right: -24px;
+      background: var(--gold);
+      color: var(--navy);
+      border-radius: 8px;
+      padding: 16px 20px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(184,134,11,0.35);
+    }
+    .about-badge-num {
+      font-family: var(--f-serif);
+      font-size: 2rem; font-weight: 700;
+      line-height: 1;
+    }
+    .about-badge-label {
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .values-list { margin-top: 2.5rem; }
+    .value-row {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .value-row:last-child { border-bottom: none; }
+    .value-num {
+      font-family: var(--f-serif);
+      font-size: 1.8rem; font-weight: 400;
+      color: var(--rule);
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 2.5rem;
+    }
+    .value-name {
+      font-family: var(--f-serif);
+      font-size: 1rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 4px;
+    }
+    .value-desc {
+      font-size: 0.82rem; color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    /* ─────────────────────────────────────────
+       ORGANIGRAMME
+    ───────────────────────────────────────── */
+    #org { background: var(--white); }
+    .org-top {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 10px;
+      padding: 2.5rem;
+      text-align: center;
+      max-width: 360px; margin: 0 auto 3rem;
+      position: relative;
+    }
+    .org-top::after {
+      content: '';
+      position: absolute; bottom: -32px; left: 50%;
+      transform: translateX(-50%);
+      width: 1px; height: 32px;
+      background: var(--rule);
+    }
+    .org-top-title {
+      font-family: var(--f-serif);
+      font-size: 1.1rem; font-weight: 600;
+    }
+    .org-top-role {
+      font-size: 0.7rem; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-family: var(--f-mono);
+      margin-top: 6px;
+    }
+    .org-branch {
+      width: 60%; margin: 0 auto;
+      display: flex; justify-content: center;
+      position: relative; padding-bottom: 2rem;
+    }
+    .org-branch::before {
+      content: '';
+      position: absolute; top: 0; left: 16%; right: 16%;
+      height: 1px; background: var(--rule);
+    }
+    .org-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 1rem;
+    }
+    .org-card {
+      border: 1px solid var(--rule);
+      border-radius: var(--r);
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      transition: border-color var(--t), box-shadow var(--t);
+      background: var(--mist);
+    }
+    .org-card:hover {
+      border-color: var(--sky);
+      box-shadow: 0 4px 20px rgba(74,127,193,0.12);
+    }
+    .org-icon {
+      width: 40px; height: 40px;
+      border: 1.5px solid var(--rule);
+      border-radius: 50%;
+      margin: 0 auto 0.85rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .org-icon svg { width: 18px; height: 18px; stroke: var(--mid-blue); fill: none; stroke-width: 1.5; stroke-linecap: round; }
+    .org-card-name {
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+    .org-card-role {
+      font-size: 0.68rem; color: var(--text-faint);
+      font-family: var(--f-mono);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─────────────────────────────────────────
+       PROGRAMMES
+    ───────────────────────────────────────── */
+    #programmes { background: var(--navy); overflow: hidden; position: relative; }
+    #programmes::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    #programmes .eyebrow-text { color: var(--gold-light); }
+    #programmes .eyebrow-line { background: var(--gold-light); }
+    #programmes .section-h { color: var(--white); }
+    #programmes .section-p { color: rgba(255,255,255,0.5); }
+    .levels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 3.5rem;
+    }
+    .level-card {
+      background: var(--navy);
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: background var(--t);
+    }
+    .level-card:hover { background: #162f57; }
+    .level-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity var(--t);
+    }
+    .level-card:hover::after { opacity: 1; }
+    .level-num-bg {
+      position: absolute; bottom: 1rem; right: 1.5rem;
+      font-family: var(--f-serif);
+      font-size: 7rem; font-weight: 700;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .level-tag {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 3px;
+      margin-bottom: 1.25rem;
+      font-family: var(--f-mono);
+    }
+    .level-title {
+      font-family: var(--f-serif);
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--white); margin-bottom: 0.5rem;
+    }
+    .level-desc {
+      font-size: 0.8rem; color: rgba(255,255,255,0.45);
+      line-height: 1.6; margin-bottom: 1.5rem;
+    }
+    .level-subjects { list-style: none; }
+    .level-subjects li {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .level-subjects li::before {
+      content: '';
+      width: 5px; height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ─────────────────────────────────────────
+       ACTIVITÉS
+    ───────────────────────────────────────── */
+    #activites { background: var(--stone); }
+    .act-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .act-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 2rem 1.75rem;
+      transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+    }
+    .act-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(17,34,64,0.1);
+      border-color: var(--sky);
+    }
+    .act-icon-wrap {
+      width: 48px; height: 48px;
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+      transition: border-color var(--t), background var(--t);
+    }
+    .act-card:hover .act-icon-wrap {
+      border-color: var(--mid-blue);
+      background: rgba(42,82,152,0.05);
+    }
+    .act-icon-wrap svg { width: 22px; height: 22px; stroke: var(--mid-blue); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .act-title {
+      font-family: var(--f-serif);
+      font-size: 1.05rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 0.5rem;
+    }
+    .act-desc {
+      font-size: 0.8rem; color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    /* ─────────────────────────────────────────
+       ACTUALITÉS
+    ───────────────────────────────────────── */
+    #actualites { background: var(--white); }
+    .news-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .link-more {
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--mid-blue);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      display: flex; align-items: center; gap: 6px;
+      transition: color var(--t);
+    }
+    .link-more:hover { color: var(--navy); }
+    .link-more::after { content: '→'; }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .news-card {
+      border: 1px solid var(--rule);
+      border-radius: 8px; overflow: hidden;
+      transition: box-shadow var(--t), transform var(--t);
+    }
+    .news-card:hover {
+      box-shadow: 0 12px 40px rgba(17,34,64,0.1);
+      transform: translateY(-3px);
+    }
+    .news-thumb {
+      height: 170px;
+      position: relative; overflow: hidden;
+    }
+    .news-thumb-inner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .news-thumb svg { width: 48px; height: 48px; opacity: 0.25; stroke: var(--white); fill: none; stroke-width: 1; }
+    .nt-a { background: linear-gradient(135deg, #112240 0%, #1a3a6e 100%); }
+    .nt-b { background: linear-gradient(135deg, #5a3a00 0%, #8b6914 100%); }
+    .nt-c { background: linear-gradient(135deg, #0e3a5a 0%, #1a6090 100%); }
+    .news-body { padding: 1.75rem; }
+    .news-tag {
+      font-family: var(--f-mono);
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--mid-blue);
+      background: rgba(42,82,152,0.08);
+      padding: 3px 10px; border-radius: 3px;
+      display: inline-block; margin-bottom: 0.85rem;
+    }
+    .news-title {
+      font-family: var(--f-serif);
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--navy); line-height: 1.35;
+      margin-bottom: 0.65rem;
+    }
+    .news-excerpt {
+      font-size: 0.82rem; color: var(--text-mid);
+      line-height: 1.7; margin-bottom: 1.25rem;
+    }
+    .news-meta {
+      font-size: 0.7rem; color: var(--text-faint);
+      font-family: var(--f-mono);
+      letter-spacing: 0.04em;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .news-meta::before {
+      content: '';
+      width: 20px; height: 1px;
+      background: var(--rule);
+    }
+
+    /* ─────────────────────────────────────────
+       CALENDRIER
+    ───────────────────────────────────────── */
+    #calendrier { background: var(--parchment); }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem; margin-top: 3rem;
+    }
+    .cal-item {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: var(--r);
+      padding: 1.5rem;
+      display: flex; gap: 1.25rem;
+      align-items: flex-start;
+      transition: border-color var(--t), box-shadow var(--t);
+    }
+    .cal-item:hover {
+      border-color: var(--sky);
+      box-shadow: 0 4px 16px rgba(74,127,193,0.1);
+    }
+    .cal-date {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 6px;
+      padding: 10px 12px;
+      text-align: center; min-width: 52px; flex-shrink: 0;
+    }
+    .cal-day {
+      font-family: var(--f-serif);
+      font-size: 1.6rem; font-weight: 700;
+      line-height: 1; display: block;
+    }
+    .cal-mo {
+      font-family: var(--f-mono);
+      font-size: 0.6rem; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      display: block; margin-top: 3px;
+    }
+    .cal-body {}
+    .cal-title {
+      font-family: var(--f-serif);
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 4px;
+    }
+    .cal-desc {
+      font-size: 0.78rem; color: var(--text-mid);
+      line-height: 1.55;
+    }
+
+    /* ─────────────────────────────────────────
+       GALERIE
+    ───────────────────────────────────────── */
+    #galerie { background: var(--navy); padding-bottom: 0; }
+    #galerie .eyebrow-text { color: var(--gold-light); }
+    #galerie .eyebrow-line { background: var(--gold-light); }
+    #galerie .section-h { color: var(--white); }
+    .gallery-intro { margin-bottom: 3rem; }
+    .gallery-mosaic {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: 220px 180px;
+      gap: 3px;
+      margin-top: 3.5rem;
+    }
+    .gal-item {
+      position: relative; overflow: hidden;
+      cursor: pointer;
+    }
+    .gal-item-inner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.6s var(--ease);
+    }
+    .gal-item:hover .gal-item-inner { transform: scale(1.04); }
+    .gal-item svg { width: 44px; height: 44px; stroke: rgba(255,255,255,0.2); fill: none; stroke-width: 0.8; }
+    .gal-overlay {
+      position: absolute; inset: 0;
+      background: rgba(11,21,32,0);
+      transition: background var(--t);
+      display: flex; align-items: flex-end;
+      padding: 1rem;
+    }
+    .gal-item:hover .gal-overlay { background: rgba(11,21,32,0.45); }
+    .gal-label {
+      font-size: 0.72rem; color: rgba(255,255,255,0);
+      font-family: var(--f-mono);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color var(--t);
+    }
+    .gal-item:hover .gal-label { color: rgba(255,255,255,0.75); }
+    .gi-1 { grid-column: 1/3; background: linear-gradient(145deg, #1a3a6e, #0d1520); }
+    .gi-2 { grid-column: 3/5; background: linear-gradient(145deg, #3a2200, #6b4800); }
+    .gi-3 { grid-column: 5/7; background: linear-gradient(145deg, #0a2a3a, #1a5070); }
+    .gi-4 { grid-column: 1/2; background: linear-gradient(145deg, #0d1520, #1a3060); }
+    .gi-5 { grid-column: 2/4; background: linear-gradient(145deg, #1a2a50, #2a4a8e); }
+    .gi-6 { grid-column: 4/6; background: linear-gradient(145deg, #4a3000, #8a6000); }
+    .gi-7 { grid-column: 6/7; background: linear-gradient(145deg, #0a1e30, #1a3a5a); }
+
+    /* ─────────────────────────────────────────
+       INFOS PRATIQUES
+    ───────────────────────────────────────── */
+    #infos { background: var(--white); }
+    .infos-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+    .info-block { margin-bottom: 2.5rem; }
+    .info-block-h {
+      font-family: var(--f-serif);
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--navy);
+      padding-bottom: 0.85rem;
+      border-bottom: 2px solid var(--rule);
+      margin-bottom: 1rem;
+    }
+    .info-row {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--stone);
+    }
+    .info-row-ico {
+      width: 32px; height: 32px;
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .info-row-ico svg { width: 15px; height: 15px; stroke: var(--mid-blue); fill: none; stroke-width: 1.5; stroke-linecap: round; }
+    .info-lbl {
+      font-family: var(--f-mono);
+      font-size: 0.62rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-faint);
+    }
+    .info-val {
+      font-size: 0.88rem; color: var(--text);
+      margin-top: 2px; line-height: 1.5;
+    }
+    .map-block {
+      background: var(--mist);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      height: 280px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 2rem;
+      overflow: hidden; position: relative;
+    }
+    .map-placeholder-inner {
+      text-align: center;
+    }
+    .map-pin-svg { width: 40px; height: 40px; stroke: var(--mid-blue); fill: none; stroke-width: 1.5; margin: 0 auto 1rem; display: block; }
+    .map-txt {
+      font-family: var(--f-serif);
+      font-size: 1rem; color: var(--navy);
+      font-weight: 600; margin-bottom: 4px;
+    }
+    .map-sub {
+      font-size: 0.75rem; color: var(--text-faint);
+      font-family: var(--f-mono);
+    }
+
+    /* ─────────────────────────────────────────
+       CONTACT
+    ───────────────────────────────────────── */
+    #contact {
+      background: var(--navy);
+      position: relative; overflow: hidden;
+    }
+    #contact::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0d1520 0%, #112240 50%, #1a3a6e 100%);
+    }
+    #contact .wrap { position: relative; z-index: 1; }
+    #contact .eyebrow-text { color: var(--gold-light); }
+    #contact .eyebrow-line { background: var(--gold-light); }
+    #contact .section-h { color: var(--white); }
+    #contact .section-p { color: rgba(255,255,255,0.5); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; margin-top: 3.5rem;
+    }
+    .form-field { margin-bottom: 1.25rem; }
+    .form-lbl {
+      display: block;
+      font-size: 0.7rem; font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      font-family: var(--f-mono);
+      margin-bottom: 7px;
+    }
+    .form-ctrl {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r);
+      padding: 12px 16px;
+      color: var(--white);
+      font-size: 0.88rem;
+      font-family: var(--f-sans);
+      transition: border-color var(--t), background var(--t);
+      outline: none;
+    }
+    .form-ctrl::placeholder { color: rgba(255,255,255,0.2); }
+    .form-ctrl:focus {
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.08);
+    }
+    textarea.form-ctrl { resize: vertical; min-height: 130px; }
+    select.form-ctrl { cursor: pointer; appearance: none; }
+    .form-submit {
+      width: 100%;
+      font-family: var(--f-sans);
+      font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .contact-aside { display: flex; flex-direction: column; gap: 1rem; }
+    .ci-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      display: flex; gap: 1rem; align-items: center;
+      transition: background var(--t), border-color var(--t);
+    }
+    .ci-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.15); }
+    .ci-icon {
+      width: 40px; height: 40px;
+      background: rgba(201,150,43,0.12);
+      border: 1px solid rgba(201,150,43,0.2);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ci-icon svg { width: 17px; height: 17px; stroke: var(--gold-light); fill: none; stroke-width: 1.5; stroke-linecap: round; }
+    .ci-lbl {
+      font-family: var(--f-mono);
+      font-size: 0.62rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+    }
+    .ci-val {
+      font-size: 0.88rem; color: var(--white);
+      font-weight: 400; margin-top: 2px;
+    }
+
+    .newsletter {
+      margin-top: 1.5rem;
+      background: rgba(201,150,43,0.07);
+      border: 1px solid rgba(201,150,43,0.18);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+    .nl-title {
+      font-family: var(--f-serif);
+      font-size: 1.05rem; font-weight: 600;
+      color: var(--gold-light); margin-bottom: 0.4rem;
+    }
+    .nl-desc { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-bottom: 1rem; }
+    .nl-row { display: flex; gap: 0.5rem; }
+    .nl-input {
+      flex: 1; padding: 10px 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 5px; color: var(--white);
+      font-size: 0.82rem; font-family: var(--f-sans);
+      outline: none;
+      transition: border-color var(--t);
+    }
+    .nl-input::placeholder { color: rgba(255,255,255,0.25); }
+    .nl-input:focus { border-color: var(--gold); }
+    .nl-btn {
+      padding: 10px 18px;
+      background: var(--gold); color: var(--navy);
+      font-weight: 700; font-size: 0.78rem;
+      border: none; border-radius: 5px;
+      cursor: pointer; font-family: var(--f-sans);
+      letter-spacing: 0.04em;
+      transition: background var(--t);
+    }
+    .nl-btn:hover { background: var(--gold-light); }
+
+    /* ─────────────────────────────────────────
+       PARTENAIRES
+    ───────────────────────────────────────── */
+    #partenaires { background: var(--parchment); }
+    .partners-row {
+      display: flex; flex-wrap: wrap;
+      gap: 1rem; justify-content: center;
+      margin-top: 3rem;
+    }
+    .partner {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      min-width: 185px;
+      transition: border-color var(--t), box-shadow var(--t);
+    }
+    .partner:hover { border-color: var(--sky); box-shadow: 0 4px 20px rgba(74,127,193,0.1); }
+    .partner-ico {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--rule);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 0.75rem;
+    }
+    .partner-ico svg { width: 16px; height: 16px; stroke: var(--mid-blue); fill: none; stroke-width: 1.5; }
+    .partner-name {
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 3px;
+    }
+    .partner-type {
+      font-size: 0.68rem; color: var(--text-faint);
+      font-family: var(--f-mono);
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    footer {
+      background: #060d18;
+      padding: 4rem 2.5rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1280px; margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 2rem;
+    }
+    .footer-brand-name {
+      font-family: var(--f-serif);
+      font-size: 1.3rem; font-weight: 600;
+      color: var(--white); margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .footer-brand-name span {
+      display: inline-block;
+      width: 28px; height: 28px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      font-size: 0.6rem; font-weight: 700;
+      color: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .footer-brand-desc {
+      font-size: 0.8rem; line-height: 1.7;
+      color: rgba(255,255,255,0.35);
+      max-width: 280px;
+    }
+    .footer-social { display: flex; gap: 8px; margin-top: 1.5rem; }
+    .footer-soc-link {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: all var(--t);
+    }
+    .footer-soc-link:hover { background: rgba(201,150,43,0.15); border-color: rgba(201,150,43,0.3); }
+    .footer-soc-link svg { width: 14px; height: 14px; stroke: rgba(255,255,255,0.5); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .footer-soc-link:hover svg { stroke: var(--gold-light); }
+    .footer-col-h {
+      font-family: var(--f-mono);
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1.25rem;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 9px; }
+    .footer-links a {
+      font-size: 0.8rem; color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color var(--t);
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.75); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 0.75rem;
+    }
+    .footer-copy {
+      font-size: 0.72rem; color: rgba(255,255,255,0.2);
+      font-family: var(--f-mono);
+    }
+    .footer-motto {
+      font-family: var(--f-serif);
+      font-size: 0.82rem; font-style: italic;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ─────────────────────────────────────────
+       MODAL
+    ───────────────────────────────────────── */
+    .modal-bg {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(6,13,24,0.8);
+      backdrop-filter: blur(8px);
+      align-items: center; justify-content: center;
+    }
+    .modal-bg.open { display: flex; }
+    .modal-box {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 3rem;
+      max-width: 520px; width: 92%;
+      max-height: 92vh; overflow-y: auto;
+      position: relative;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+    }
+    .modal-close {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      width: 32px; height: 32px;
+      background: var(--stone); border: none; border-radius: 50%;
+      cursor: pointer; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--t);
+    }
+    .modal-close:hover { background: var(--rule); }
+    .modal-close svg { width: 14px; height: 14px; stroke: var(--text-mid); fill: none; stroke-width: 2; stroke-linecap: round; }
+    .modal-h {
+      font-family: var(--f-serif);
+      font-size: 1.8rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 0.35rem;
+    }
+    .modal-sub { font-size: 0.82rem; color: var(--text-faint); margin-bottom: 2rem; }
+    .modal .form-lbl { color: var(--text-mid); }
+    .modal .form-ctrl {
+      background: var(--mist);
+      border-color: var(--rule);
+      color: var(--text);
+    }
+    .modal .form-ctrl:focus { border-color: var(--mid-blue); background: var(--white); }
+    .modal .form-ctrl::placeholder { color: var(--text-faint); }
+    .modal-note { font-size: 0.72rem; color: var(--text-faint); margin-top: 1rem; line-height: 1.6; }
+
+    /* ─────────────────────────────────────────
+       SCROLL REVEAL
+    ───────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal:nth-child(2) { transition-delay: 0.08s; }
+    .reveal:nth-child(3) { transition-delay: 0.16s; }
+    .reveal:nth-child(4) { transition-delay: 0.24s; }
+    .reveal:nth-child(5) { transition-delay: 0.32s; }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-panel { display: none; }
+      .about-grid, .infos-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      section { padding: 72px 1.5rem; }
+      #nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .burger { display: flex; }
+      .footer-top { grid-template-columns: 1fr; }
+      .gallery-mosaic {
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: repeat(3, 130px);
+      }
+      .gi-1,.gi-2,.gi-3,.gi-4,.gi-5,.gi-6,.gi-7 { grid-column: auto; grid-row: auto; }
+      .hero-content { padding: 110px 1.5rem 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-brand">
+      <div class="nav-seal">
+        <div class="nav-seal-text">CEG</div>
+      </div>
+      <div class="nav-name">
+        CEG Fandriana
+        <small>Amoron'i Mania &mdash; Madagascar</small>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#about">À propos</a>
+      <a href="#programmes">Programmes</a>
+      <a href="#actualites">Actualités</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#infos">Informations</a>
+      <a href="#contact">Contact</a>
+      <a href="#" class="nav-btn" onclick="openModal();return false;">Inscription</a>
+    </div>
+    <div class="burger" onclick="toggleMenu()" id="burger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="#about" onclick="closeMob()">À propos</a>
+  <a href="#programmes" onclick="closeMob()">Programmes</a>
+  <a href="#actualites" onclick="closeMob()">Actualités</a>
+  <a href="#galerie" onclick="closeMob()">Galerie</a>
+  <a href="#infos" onclick="closeMob()">Informations pratiques</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+  <a href="#" onclick="openModal();closeMob();return false;">Inscription en ligne</a>
+</div>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-geo"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-diag"></div>
+  <div class="hero-accent"></div>
+
+  <div class="hero-content wrap">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <div class="hero-eyebrow-text">Fandriana &middot; District de Fandriana &middot; Madagascar</div>
+      </div>
+      <h1 class="hero-title">
+        Former les<br><em>leaders</em><br>de demain
+      </h1>
+      <p class="hero-subtitle">
+        Le Collège d'Enseignement Général de Fandriana dispense un enseignement fondamental de qualité, ancré dans les valeurs malgaches, pour préparer chaque élève à construire son propre avenir.
+      </p>
+      <div class="hero-actions">
+        <a href="#programmes" class="btn btn-gold">Découvrir nos programmes</a>
+        <a href="#" class="btn btn-ghost" onclick="openModal();return false;">Inscription en ligne</a>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <div class="hp-seal"><div class="hp-seal-abbr">CEG</div></div>
+      <div class="hp-name">CEG Fandriana</div>
+      <div class="hp-location">Collège d'Enseignement Général</div>
+      <div class="hp-divider"></div>
+      <div class="hp-stats">
+        <div class="hp-stat">
+          <div class="hp-stat-num">500+</div>
+          <div class="hp-stat-label">Élèves</div>
+        </div>
+        <div class="hp-stat">
+          <div class="hp-stat-num">85%</div>
+          <div class="hp-stat-label">Taux réussite</div>
+        </div>
+        <div class="hp-stat">
+          <div class="hp-stat-num">30+</div>
+          <div class="hp-stat-label">Enseignants</div>
+        </div>
+        <div class="hp-stat">
+          <div class="hp-stat-num">4</div>
+          <div class="hp-stat-label">Niveaux</div>
+        </div>
+      </div>
+      <div class="hp-levels">
+        <div class="hp-level"><div class="hp-level-class">6e</div><div class="hp-level-word">Sixième</div></div>
+        <div class="hp-level"><div class="hp-level-class">5e</div><div class="hp-level-word">Cinquième</div></div>
+        <div class="hp-level"><div class="hp-level-class">4e</div><div class="hp-level-word">Quatrième</div></div>
+        <div class="hp-level"><div class="hp-level-class">3e</div><div class="hp-level-word">Troisième</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-label">Défiler</div>
+    <div class="hero-scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ À PROPOS ═══════════════════════ -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-img">
+          <div class="about-img-inner">
+            <!-- Architectural school illustration -->
+            <svg class="about-img-svg" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="80" y="180" width="440" height="200" stroke="white" stroke-width="1.5"/>
+              <rect x="130" y="220" width="60" height="80" stroke="white" stroke-width="1.5"/>
+              <rect x="220" y="220" width="60" height="80" stroke="white" stroke-width="1.5"/>
+              <rect x="320" y="220" width="60" height="80" stroke="white" stroke-width="1.5"/>
+              <rect x="410" y="220" width="60" height="80" stroke="white" stroke-width="1.5"/>
+              <rect x="260" y="270" width="80" height="110" stroke="white" stroke-width="1.5"/>
+              <line x1="80" y1="180" x2="300" y2="60" stroke="white" stroke-width="1.5"/>
+              <line x1="520" y1="180" x2="300" y2="60" stroke="white" stroke-width="1.5"/>
+              <line x1="200" y1="180" x2="300" y2="120" stroke="white" stroke-width="1"/>
+              <line x1="400" y1="180" x2="300" y2="120" stroke="white" stroke-width="1"/>
+              <circle cx="300" cy="55" r="12" stroke="white" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="about-caption">
+            <div class="about-caption-text">Bâtiment principal du CEG Fandriana</div>
+            <div class="about-caption-sub">Fandriana, Amoron'i Mania</div>
+          </div>
+        </div>
+        <div class="about-badge">
+          <div class="about-badge-num">50+</div>
+          <div class="about-badge-label">Années de service</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="eyebrow reveal">
+          <div class="eyebrow-line"></div>
+          <div class="eyebrow-text">Présentation</div>
+        </div>
+        <h2 class="section-h reveal">Un pilier de l'éducation<br>en <em>Amoron'i Mania</em></h2>
+        <p class="section-p reveal">Le CEG Fandriana est un établissement public d'enseignement du premier cycle du secondaire, situé dans le chef-lieu du district de Fandriana. Il accueille des centaines d'élèves issus de toute la région et joue un rôle central dans la formation intellectuelle et citoyenne de la jeunesse malgache.</p>
+
+        <div class="values-list">
+          <div class="value-row reveal">
+            <div class="value-num">01</div>
+            <div>
+              <div class="value-name">Excellence académique</div>
+              <div class="value-desc">Des programmes conformes aux directives nationales, dispensés par des enseignants qualifiés et engagés dans la réussite de chaque élève.</div>
+            </div>
+          </div>
+          <div class="value-row reveal">
+            <div class="value-num">02</div>
+            <div>
+              <div class="value-name">Valeurs citoyennes</div>
+              <div class="value-desc">Former des citoyens responsables, respectueux et attachés aux valeurs du fihavanana et de la République de Madagascar.</div>
+            </div>
+          </div>
+          <div class="value-row reveal">
+            <div class="value-num">03</div>
+            <div>
+              <div class="value-name">Épanouissement personnel</div>
+              <div class="value-desc">Un cadre éducatif bienveillant, favorisant le développement des talents, de la créativité et de la confiance en soi.</div>
+            </div>
+          </div>
+          <div class="value-row reveal">
+            <div class="value-num">04</div>
+            <div>
+              <div class="value-name">Ancrage communautaire</div>
+              <div class="value-desc">Un partenariat fort avec les familles, les associations locales et les institutions pour une éducation partagée.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ ORGANIGRAMME ═══════════════════════ -->
+<section id="org">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Organisation</div>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-h" style="text-align:center;margin-bottom:3rem">Organigramme de l'établissement</h2>
+    <div class="org-top reveal">
+      <div class="org-top-title">Direction du CEG Fandriana</div>
+      <div class="org-top-role">Chef d'Établissement &mdash; Directeur</div>
+    </div>
+    <div class="org-branch"></div>
+    <div class="org-grid">
+      <div class="org-card reveal">
+        <div class="org-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="org-card-name">Secrétariat administratif</div>
+        <div class="org-card-role">Administration générale</div>
+      </div>
+      <div class="org-card reveal">
+        <div class="org-icon">
+          <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="org-card-name">Responsable pédagogique</div>
+        <div class="org-card-role">Coordination des enseignements</div>
+      </div>
+      <div class="org-card reveal">
+        <div class="org-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="org-card-name">Corps enseignant</div>
+        <div class="org-card-role">30+ professeurs qualifiés</div>
+      </div>
+      <div class="org-card reveal">
+        <div class="org-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="org-card-name">Équipe de surveillance</div>
+        <div class="org-card-role">Vie scolaire & discipline</div>
+      </div>
+      <div class="org-card reveal">
+        <div class="org-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div class="org-card-name">Bibliothèque</div>
+        <div class="org-card-role">Ressources documentaires</div>
+      </div>
+      <div class="org-card reveal">
+        <div class="org-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="org-card-name">Association des parents</div>
+        <div class="org-card-role">Partenariat communautaire</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ PROGRAMMES ═══════════════════════ -->
+<section id="programmes">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Enseignement</div>
+    </div>
+    <h2 class="section-h">Programmes par niveau</h2>
+    <p class="section-p">Du certificat de fin d'études primaires au Brevet d'Études du Premier Cycle, nous accompagnons chaque élève dans la construction rigoureuse de ses compétences fondamentales.</p>
+
+    <div class="levels-grid">
+      <div class="level-card reveal">
+        <div class="level-num-bg">I</div>
+        <div class="level-tag">6e &mdash; Sixième</div>
+        <div class="level-title">Première année</div>
+        <div class="level-desc">Transition du cycle primaire au collège. Consolidation des bases disciplinaires et développement de l'autonomie scolaire.</div>
+        <ul class="level-subjects">
+          <li>Langue malgache</li>
+          <li>Langue française</li>
+          <li>Mathématiques</li>
+          <li>Histoire &amp; Géographie</li>
+          <li>Sciences naturelles</li>
+          <li>Éducation physique</li>
+        </ul>
+      </div>
+      <div class="level-card reveal">
+        <div class="level-num-bg">II</div>
+        <div class="level-tag">5e &mdash; Cinquième</div>
+        <div class="level-title">Deuxième année</div>
+        <div class="level-desc">Approfondissement disciplinaire et développement progressif des méthodes de travail intellectuel.</div>
+        <ul class="level-subjects">
+          <li>Malagasy &amp; Français</li>
+          <li>Algèbre &amp; Géométrie</li>
+          <li>Sciences de la vie</li>
+          <li>Physique-Chimie</li>
+          <li>Arts plastiques</li>
+          <li>Éducation civique</li>
+        </ul>
+      </div>
+      <div class="level-card reveal">
+        <div class="level-num-bg">III</div>
+        <div class="level-tag">4e &mdash; Quatrième</div>
+        <div class="level-title">Troisième année</div>
+        <div class="level-desc">Consolidation des acquis et premières orientations vers les filières du lycée selon les aptitudes et projets de l'élève.</div>
+        <ul class="level-subjects">
+          <li>Français &amp; Anglais</li>
+          <li>Mathématiques avancées</li>
+          <li>Sciences humaines</li>
+          <li>Physique-Chimie</li>
+          <li>Technologie</li>
+          <li>Musique &amp; Arts</li>
+        </ul>
+      </div>
+      <div class="level-card reveal">
+        <div class="level-num-bg">IV</div>
+        <div class="level-tag">3e &mdash; Troisième</div>
+        <div class="level-title">Année du BEPC</div>
+        <div class="level-desc">Préparation intensive au Brevet d'Études du Premier Cycle, diplôme national sanctionnant le premier cycle du secondaire.</div>
+        <ul class="level-subjects">
+          <li>Révisions toutes matières</li>
+          <li>Examens blancs réguliers</li>
+          <li>Orientation lycée</li>
+          <li>Projet personnel élève</li>
+          <li>Soutien scolaire</li>
+          <li>Conférence métiers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ ACTIVITÉS ═══════════════════════ -->
+<section id="activites">
+  <div class="wrap">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Vie scolaire</div>
+    </div>
+    <h2 class="section-h">Clubs &amp; activités<br><em>parascolaires</em></h2>
+    <div class="act-grid">
+      <div class="act-card reveal">
+        <div class="act-icon-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l4.24 4.24"/><path d="M14.83 9.17l4.24-4.24"/><path d="M14.83 14.83l4.24 4.24"/><path d="M9.17 14.83l-4.24 4.24"/><circle cx="12" cy="12" r="4"/></svg>
+        </div>
+        <div class="act-title">Sports collectifs</div>
+        <div class="act-desc">Football, volleyball et athlétisme. Participation aux compétitions inter-établissements au niveau du district et de la région.</div>
+      </div>
+      <div class="act-card reveal">
+        <div class="act-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <div class="act-title">Arts &amp; Culture</div>
+        <div class="act-desc">Théâtre, chant choral et danses traditionnelles malgaches lors des cérémonies et fêtes scolaires.</div>
+      </div>
+      <div class="act-card reveal">
+        <div class="act-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>
+        </div>
+        <div class="act-title">Club Sciences</div>
+        <div class="act-desc">Expériences pratiques en laboratoire, olympiades scientifiques régionales et ateliers de vulgarisation.</div>
+      </div>
+      <div class="act-card reveal">
+        <div class="act-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div class="act-title">Lecture &amp; Bibliothèque</div>
+        <div class="act-desc">Espace de lecture libre, débats littéraires hebdomadaires et concours de rédaction en langue française et malgache.</div>
+      </div>
+      <div class="act-card reveal">
+        <div class="act-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="act-title">Environnement</div>
+        <div class="act-desc">Campagnes de reboisement, jardin pédagogique et sensibilisation à la biodiversité malgache avec la commune.</div>
+      </div>
+      <div class="act-card reveal">
+        <div class="act-icon-wrap">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="act-title">Conseil des élèves</div>
+        <div class="act-desc">Gouvernance participative, développement du leadership, initiatives citoyennes et représentation des élèves.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ ACTUALITÉS ═══════════════════════ -->
+<section id="actualites">
+  <div class="wrap">
+    <div class="news-header">
+      <div>
+        <div class="eyebrow">
+          <div class="eyebrow-line"></div>
+          <div class="eyebrow-text">Actualités</div>
+        </div>
+        <h2 class="section-h" style="margin-bottom:0">Vie de l'établissement</h2>
+      </div>
+      <a href="#" class="link-more">Toutes les actualités</a>
+    </div>
+    <div class="news-grid">
+      <div class="news-card reveal">
+        <div class="news-thumb nt-a">
+          <div class="news-thumb-inner">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+        </div>
+        <div class="news-body">
+          <span class="news-tag">Résultats</span>
+          <h3 class="news-title">Excellents résultats au BEPC — Session 2024</h3>
+          <p class="news-excerpt">Le CEG Fandriana enregistre un taux de réussite remarquable cette année avec plusieurs lauréats parmi les meilleurs du district d'Amoron'i Mania.</p>
+          <div class="news-meta">15 Août 2024</div>
+        </div>
+      </div>
+      <div class="news-card reveal">
+        <div class="news-thumb nt-b">
+          <div class="news-thumb-inner">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+        </div>
+        <div class="news-body">
+          <span class="news-tag">Rentrée scolaire</span>
+          <h3 class="news-title">Rentrée 2024–2025 : accueil des nouveaux élèves</h3>
+          <p class="news-excerpt">La rentrée s'est déroulée dans une ambiance chaleureuse, avec plus de 500 élèves accueillis par l'ensemble de l'équipe pédagogique.</p>
+          <div class="news-meta">2 Septembre 2024</div>
+        </div>
+      </div>
+      <div class="news-card reveal">
+        <div class="news-thumb nt-c">
+          <div class="news-thumb-inner">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+        </div>
+        <div class="news-body">
+          <span class="news-tag">Communauté</span>
+          <h3 class="news-title">Journée de reboisement organisée par le Club Environnement</h3>
+          <p class="news-excerpt">Plus de 200 élèves ont participé à la plantation d'arbres dans les collines environnantes, en partenariat avec la commune urbaine de Fandriana.</p>
+          <div class="news-meta">18 Octobre 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CALENDRIER ═══════════════════════ -->
+<section id="calendrier">
+  <div class="wrap">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Organisation</div>
+    </div>
+    <h2 class="section-h">Calendrier scolaire <em>2024–2025</em></h2>
+    <div class="cal-grid">
+      <div class="cal-item reveal">
+        <div class="cal-date"><span class="cal-day">02</span><span class="cal-mo">Sept</span></div>
+        <div class="cal-body"><div class="cal-title">Rentrée scolaire</div><div class="cal-desc">Début de l'année académique 2024–2025. Accueil de tous les niveaux.</div></div>
+      </div>
+      <div class="cal-item reveal">
+        <div class="cal-date"><span class="cal-day">23</span><span class="cal-mo">Déc</span></div>
+        <div class="cal-body"><div class="cal-title">Vacances de Noël</div><div class="cal-desc">Fermeture du 23 décembre au 6 janvier inclus.</div></div>
+      </div>
+      <div class="cal-item reveal">
+        <div class="cal-date"><span class="cal-day">Jan</span><span class="cal-mo">2025</span></div>
+        <div class="cal-body"><div class="cal-title">Compositions du 1er trimestre</div><div class="cal-desc">Évaluations certificatives de fin de trimestre pour tous les niveaux.</div></div>
+      </div>
+      <div class="cal-item reveal">
+        <div class="cal-date"><span class="cal-day">Mar</span><span class="cal-mo">2025</span></div>
+        <div class="cal-body"><div class="cal-title">Vacances de Pâques</div><div class="cal-desc">Deux semaines de congés scolaires. Reprise début avril.</div></div>
+      </div>
+      <div class="cal-item reveal">
+        <div class="cal-date"><span class="cal-day">Mai</span><span class="cal-mo">2025</span></div>
+        <div class="cal-body"><div class="cal-title">Examens blancs BEPC</div><div class="cal-desc">Session de préparation intensive pour les élèves de 3e.</div></div>
+      </div>
+      <div class="cal-item reveal">
+        <div class="cal-date"><span class="cal-day">Juil</span><span class="cal-mo">2025</span></div>
+        <div class="cal-body"><div class="cal-title">BEPC — Session officielle</div><div class="cal-desc">Examens nationaux de fin du premier cycle du secondaire.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ GALERIE ═══════════════════════ -->
+<section id="galerie" style="padding-bottom:0">
+  <div class="wrap gallery-intro">
+    <div class="eyebrow">
+      <div class="eyebrow-line" style="background:var(--gold-light)"></div>
+      <div class="eyebrow-text">Galerie</div>
+    </div>
+    <h2 class="section-h" style="color:var(--white)">La vie au CEG Fandriana<br><em>en images</em></h2>
+  </div>
+  <div class="gallery-mosaic">
+    <div class="gal-item gi-1">
+      <div class="gal-item-inner">
+        <svg viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32" rx="2"/><path d="M8 20h32M20 8v32"/></svg>
+      </div>
+      <div class="gal-overlay"><span class="gal-label">Bâtiment principal</span></div>
+    </div>
+    <div class="gal-item gi-2">
+      <div class="gal-item-inner">
+        <svg viewBox="0 0 48 48"><path d="M24 8l3.09 9.26L36 18.27l-6.5 6.34L31.18 34 24 29.77 16.82 34l1.68-9.39L12 18.27l8.91-1.01z"/></svg>
+      </div>
+      <div class="gal-overlay"><span class="gal-label">Cérémonie de remise de prix</span></div>
+    </div>
+    <div class="gal-item gi-3">
+      <div class="gal-item-inner">
+        <svg viewBox="0 0 48 48"><path d="M4 38L24 10 44 38H4z"/><path d="M14 38V24h20v14"/></svg>
+      </div>
+      <div class="gal-overlay"><span class="gal-label">Salle de classe</span></div>
+    </div>
+    <div class="gal-item gi-4">
+      <div class="gal-item-inner">
+        <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M16 24l6 6 10-12"/></svg>
+      </div>
+      <div class="gal-overlay"><span class="gal-label">Sport</span></div>
+    </div>
+    <div class="gal-item gi-5">
+      <div class="gal-item-inner">
+        <svg viewBox="0 0 48 48"><path d="M8 40V20l16-12 16 12v20"/><rect x="20" y="28" width="8" height="12"/></svg>
+      </div>
+      <div class="gal-overlay"><span class="gal-label">Laboratoire de sciences</span></div>
+    </div>
+    <div class="gal-item gi-6">
+      <div class="gal-item-inner">
+        <svg viewBox="0 0 48 48"><path d="M6 36l10-18 8 12 6-8 12 14H6z"/><circle cx="36" cy="14" r="6"/></svg>
+      </div>
+      <div class="gal-overlay"><span class="gal-label">Activités culturelles</span></div>
+    </div>
+    <div class="gal-item gi-7">
+      <div class="gal-item-inner">
+        <svg viewBox="0 0 48 48"><path d="M12 40V20M24 40V8M36 40V28"/></svg>
+      </div>
+      <div class="gal-overlay"><span class="gal-label">Bibliothèque</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ INFOS PRATIQUES ═══════════════════════ -->
+<section id="infos">
+  <div class="wrap">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Informations pratiques</div>
+    </div>
+    <h2 class="section-h">Accès &amp; <em>contacts</em></h2>
+    <div class="infos-grid" style="margin-top:3rem">
+      <div>
+        <div class="map-block reveal">
+          <div class="map-placeholder-inner">
+            <svg class="map-pin-svg" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="map-txt">CEG Fandriana</div>
+            <div class="map-sub">Fandriana &middot; District de Fandriana<br>Région Amoron'i Mania &middot; Madagascar</div>
+          </div>
+        </div>
+        <div class="info-block reveal">
+          <div class="info-block-h">Localisation &amp; accès</div>
+          <div class="info-row">
+            <div class="info-row-ico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="info-lbl">Adresse</div><div class="info-val">Fandriana, District de Fandriana, Région Amoron'i Mania, Madagascar</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-ico"><svg viewBox="0 0 24 24"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg></div>
+            <div><div class="info-lbl">Transport</div><div class="info-val">Accessible depuis le centre-ville. Taxi-be disponibles depuis la RN7.</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="info-block reveal">
+          <div class="info-block-h">Horaires d'ouverture</div>
+          <div class="info-row">
+            <div class="info-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="info-lbl">Cours — Matin</div><div class="info-val">7h30 &ndash; 12h00</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="info-lbl">Cours — Après-midi</div><div class="info-val">14h00 &ndash; 17h00</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div><div class="info-lbl">Jours d'ouverture</div><div class="info-val">Lundi au Vendredi, samedi matin selon programme</div></div>
+          </div>
+        </div>
+        <div class="info-block reveal">
+          <div class="info-block-h">Contacts</div>
+          <div class="info-row">
+            <div class="info-row-ico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.58 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg></div>
+            <div><div class="info-lbl">Téléphone</div><div class="info-val">+261 XX XX XXX XX</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="info-lbl">Email</div><div class="info-val">ceg.fandriana@edu.mg</div></div>
+          </div>
+        </div>
+        <div class="info-block reveal">
+          <div class="info-block-h">Installations</div>
+          <div class="info-row">
+            <div class="info-row-ico"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+            <div><div class="info-lbl">Bibliothèque</div><div class="info-val">Fonds documentaire ouvert aux élèves chaque jour</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg></div>
+            <div><div class="info-lbl">Terrain de sport</div><div class="info-val">Football, volleyball, athlétisme</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-ico"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg></div>
+            <div><div class="info-lbl">Laboratoire</div><div class="info-val">Travaux pratiques sciences naturelles et physique</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CONTACT ═══════════════════════ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="eyebrow">
+      <div class="eyebrow-line" style="background:var(--gold-light)"></div>
+      <div class="eyebrow-text">Contact</div>
+    </div>
+    <h2 class="section-h">Prenez contact<br><em>avec nous</em></h2>
+    <p class="section-p">Pour toute question relative aux inscriptions, aux programmes scolaires ou à la vie de l'établissement, notre équipe administrative est à votre disposition.</p>
+    <div class="contact-grid">
+      <div>
+        <div class="form-field">
+          <label class="form-lbl">Nom complet</label>
+          <input type="text" class="form-ctrl" placeholder="Votre nom et prénom" />
+        </div>
+        <div class="form-field">
+          <label class="form-lbl">Email ou téléphone</label>
+          <input type="text" class="form-ctrl" placeholder="contact@exemple.mg ou +261 XX..." />
+        </div>
+        <div class="form-field">
+          <label class="form-lbl">Objet</label>
+          <input type="text" class="form-ctrl" placeholder="Ex : Renseignement sur les inscriptions" />
+        </div>
+        <div class="form-field">
+          <label class="form-lbl">Message</label>
+          <textarea class="form-ctrl" placeholder="Votre message..."></textarea>
+        </div>
+        <button class="btn btn-gold form-submit" onclick="feedbackBtn(this,'Message envoyé')">Envoyer le message</button>
+      </div>
+      <div>
+        <div class="contact-aside">
+          <div class="ci-card">
+            <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="ci-lbl">Adresse</div><div class="ci-val">Fandriana, Amoron'i Mania, Madagascar</div></div>
+          </div>
+          <div class="ci-card">
+            <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.58 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg></div>
+            <div><div class="ci-lbl">Téléphone</div><div class="ci-val">+261 XX XX XXX XX</div></div>
+          </div>
+          <div class="ci-card">
+            <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="ci-lbl">Email</div><div class="ci-val">ceg.fandriana@edu.mg</div></div>
+          </div>
+          <div class="ci-card">
+            <div class="ci-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="ci-lbl">Secrétariat</div><div class="ci-val">Lun &ndash; Ven &middot; 7h30 à 16h00</div></div>
+          </div>
+        </div>
+        <div class="newsletter">
+          <div class="nl-title">Bulletin d'information</div>
+          <div class="nl-desc">Recevez les actualités, résultats d'examens et événements du CEG Fandriana directement par email.</div>
+          <div class="nl-row">
+            <input type="email" class="nl-input" placeholder="Votre adresse email" />
+            <button class="nl-btn" onclick="feedbackBtn(this,&quot;Abonné&quot;)">S'abonner</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ PARTENAIRES ═══════════════════════ -->
+<section id="partenaires">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Partenaires &amp; soutiens</div>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-h" style="text-align:center">Ils accompagnent le CEG Fandriana</h2>
+    <div class="partners-row">
+      <div class="partner reveal">
+        <div class="partner-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="partner-name">Ministère de l'Éducation Nationale</div>
+        <div class="partner-type">Tutelle administrative</div>
+      </div>
+      <div class="partner reveal">
+        <div class="partner-ico"><svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/></svg></div>
+        <div class="partner-name">Commune Urbaine de Fandriana</div>
+        <div class="partner-type">Collectivité territoriale</div>
+      </div>
+      <div class="partner reveal">
+        <div class="partner-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="partner-name">Association des Parents d'Élèves</div>
+        <div class="partner-type">Partenaire communautaire</div>
+      </div>
+      <div class="partner reveal">
+        <div class="partner-ico"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="partner-name">CISCO Fandriana</div>
+        <div class="partner-type">Circonscription scolaire</div>
+      </div>
+      <div class="partner reveal">
+        <div class="partner-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="partner-name">Organisations d'appui</div>
+        <div class="partner-type">ONG &amp; partenaires</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">
+          <span>CEG</span>
+          CEG Fandriana
+        </div>
+        <p class="footer-brand-desc">Collège d'Enseignement Général de Fandriana. Établissement public d'enseignement du premier cycle du secondaire — District de Fandriana, Région Amoron'i Mania, République de Madagascar.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-soc-link" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="footer-soc-link" title="Email">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+          <a href="#" class="footer-soc-link" title="Téléphone">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.58 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-h">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#org">Organigramme</a></li>
+          <li><a href="#programmes">Programmes</a></li>
+          <li><a href="#activites">Activités</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-h">Informations</div>
+        <ul class="footer-links">
+          <li><a href="#actualites">Actualités</a></li>
+          <li><a href="#calendrier">Calendrier scolaire</a></li>
+          <li><a href="#infos">Accès &amp; horaires</a></li>
+          <li><a href="#partenaires">Partenaires</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-h">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#">Fandriana, Amoron'i Mania</a></li>
+          <li><a href="#">+261 XX XX XXX XX</a></li>
+          <li><a href="#">ceg.fandriana@edu.mg</a></li>
+          <li><a href="#" onclick="openModal();return false;">Inscription en ligne</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2025 CEG Fandriana &mdash; Tous droits réservés &middot; Établissement public &middot; Madagascar</span>
+      <span class="footer-motto">Fivoarana &middot; Fanabeazana &middot; Fandriana</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════ MODAL INSCRIPTION ═══════════════════════ -->
+<div class="modal-bg" id="modalBg" onclick="closeBg(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-h">Inscription en ligne</div>
+    <div class="modal-sub">Formulaire de pré-inscription — CEG Fandriana 2025–2026</div>
+    <div class="form-field">
+      <label class="form-lbl">Nom de l'élève</label>
+      <input type="text" class="form-ctrl" placeholder="Nom et prénom complet" />
+    </div>
+    <div class="form-field">
+      <label class="form-lbl">Date de naissance</label>
+      <input type="date" class="form-ctrl" />
+    </div>
+    <div class="form-field">
+      <label class="form-lbl">Classe demandée</label>
+      <select class="form-ctrl">
+        <option value="">Sélectionner un niveau...</option>
+        <option>6e — Entrée en collège</option>
+        <option>5e — Passage en cinquième</option>
+        <option>4e — Passage en quatrième</option>
+        <option>3e — Passage en troisième</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label class="form-lbl">Nom du parent ou tuteur légal</label>
+      <input type="text" class="form-ctrl" placeholder="Nom complet du responsable" />
+    </div>
+    <div class="form-field">
+      <label class="form-lbl">Contact (téléphone ou email)</label>
+      <input type="text" class="form-ctrl" placeholder="+261 XX... ou email@exemple.mg" />
+    </div>
+    <div class="form-field">
+      <label class="form-lbl">Établissement d'origine</label>
+      <input type="text" class="form-ctrl" placeholder="Ex : EPP Fandriana, CEG Andoharano..." />
+    </div>
+    <button class="btn btn-gold form-submit" onclick="feedbackBtn(this,'Demande envoyée')" style="background:var(--navy);color:var(--white)">Soumettre la demande d'inscription</button>
+    <p class="modal-note">Une confirmation vous sera transmise. Les documents officiels requis (acte de naissance, bulletin scolaire, certificat de scolarité) devront être présentés lors de la venue au secrétariat.</p>
+  </div>
+</div>
+
+<script>
+  // Navbar scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 30);
+  });
+  document.getElementById('nav').classList.add('scrolled');
+
+  // Mobile menu
+  let menuOpen = false;
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    const m = document.getElementById('mobMenu');
+    m.style.display = menuOpen ? 'flex' : 'none';
+  }
+  function closeMob() {
+    menuOpen = false;
+    document.getElementById('mobMenu').style.display = 'none';
+  }
+
+  // Modal
+  function openModal() {
+    document.getElementById('modalBg').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('modalBg').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeBg(e) {
+    if (e.target === document.getElementById('modalBg')) closeModal();
+  }
+
+  // Scroll reveal
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  // Button feedback
+  function feedbackBtn(btn, msg) {
+    const orig = btn.textContent;
+    const origBg = btn.style.background;
+    btn.textContent = msg;
+    btn.style.background = '#15803d';
+    btn.style.color = '#fff';
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.background = origBg;
+      btn.style.color = '';
+    }, 2800);
+  }
+</script>
+</body>
+</html>
