@@ -1,0 +1,16 @@
+# Ignore GCP credentials key
+gcp-key.json
+
+# Ignore mac OS files
+.DS_Store
+
+# Ignore node module folders (just in case they are added later)
+node_modules/
+
+# Ignore editor directories and files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
